@@ -1,0 +1,17 @@
+{
+   "type": "postgres",
+   "host": "localhost",
+   "port": 3302,
+   "username": "api-base-user",
+   "password": "api-base-password",
+   "database": "api-base",
+   "entities": [
+      "src/domain/entities/**/*.ts"
+   ],
+   "migrations": [
+      "src/infra/database/migration/**/*.ts"
+   ],
+   "cli": {
+        "migrationsDir": "src/infra/database/migration"
+    }
+}
