@@ -1,18 +1,15 @@
 import { Inject } from "@nestjs/common";
-import { Item } from "src/domain/entities/item.entity";
-import { Repository } from "typeorm";
+import { DELETE_ITEM_REPOSITORY, IDeleteItemRepository } from "../../../../../data/repository/item/delete-item/delete-item.repository.interface";
 import { IDeleteItemInterface } from "../delete-item.interface";
 
 export class DeleteItemService implements IDeleteItemInterface {
     constructor(
-        @Inject('ITENS_REPOSITORY')
-        private _repository: Repository<Item>,
+        @Inject(DELETE_ITEM_REPOSITORY)
+        private readonly _repository: IDeleteItemRepository
     ) { }
     async handle(id: string): Promise<boolean> {
         const data = await this._repository.delete(id)
-        if (data.affected)
-            return true;
-        return false;
+        return data;
     }
 
 }

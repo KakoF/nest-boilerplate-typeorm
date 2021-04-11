@@ -1,6 +1,6 @@
 
 import { Connection } from 'typeorm';
-import { Item } from '../../domain/entities/item.entity';
+import { Item } from '../../../domain/entities/item.entity';
 
 export const itemProviders = [
     {

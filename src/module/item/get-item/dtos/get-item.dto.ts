@@ -1,3 +1,4 @@
+import { Item } from "src/domain/entities/item.entity";
 
 export class GetItemDto implements Readonly<GetItemDto> {
     id: string;
@@ -5,6 +6,16 @@ export class GetItemDto implements Readonly<GetItemDto> {
     description: string
     createAt: Date;
     updateAt: Date;
+
+    public static from(entity: Item): GetItemDto {
+        const response = new GetItemDto();
+        response.id = entity.id
+        response.name = entity.name
+        response.description = entity.description
+        response.createAt = entity.createAt
+        response.updateAt = entity.updateAt
+        return response
+    }
 
     /*public static from(dto: Partial<CreatItemDto>) {
         const it = new CreatItemDto();

@@ -10,7 +10,7 @@ export class ReadItemController {
         private readonly _service: IReadItemInterface
     ) { }
     @Get()
-    @UseGuards(JWTGuard)
+    //@UseGuards(JWTGuard)
     public async read(): Promise<ReadItemDto[]> {
         const data = await this._service.handle()
         return data;
