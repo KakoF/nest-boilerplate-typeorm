@@ -1,8 +1,7 @@
 import { IsString, IsUUID, } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { CreateItemResponseDto } from './create-item-response.dto';
-import { Item } from 'src/domain/entities/item.entity';
-//import { v4 as uuidv4 } from 'uuid'
+import { v4 as uuidv4 } from 'uuid'
 
 export class CreateItemRequestDto implements Readonly<CreateItemRequestDto> {
     @IsUUID()
@@ -16,13 +15,14 @@ export class CreateItemRequestDto implements Readonly<CreateItemRequestDto> {
     @IsString()
     description: string;
 
-    public static from(entity: Item): CreateItemResponseDto {
-        const response = new CreateItemResponseDto();
-        response.id = entity.id
+    createAt: Date;
+
+    public static from(entity: CreateItemRequestDto): CreateItemRequestDto {
+        const response = new CreateItemRequestDto();
+        response.id = uuidv4();
         response.name = entity.name
         response.description = entity.description
-        response.createAt = entity.createAt
-        response.updateAt = entity.updateAt
+        response.createAt = new Date((new Date()).getTime() + 24 * 60 * 60 * 1000)
         return response
     }
 

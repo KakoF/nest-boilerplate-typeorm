@@ -11,9 +11,16 @@ export class UpdateItemService implements IUpdateItemInterface {
         @Inject(UPDATE_ITEM_REPOSITORY) private readonly _repository: IUpdateItemRepository,
     ) { }
     async handle(id: string, item: UpdateItemRequestDto): Promise<UpdateItemResponseDto> {
+        
+        //const data = CreateItemRequestDto.from(item)
+        //return CreateItemResponseDto.from(await this._repository.create(data))
+
+
+
         const pastItem = await this._get.get(id);
         const updateItem = { ...pastItem, ...item };
-        const data = UpdateItemRequestDto.from(await this._repository.update(updateItem))
+        const data = UpdateItemRequestDto.from(updateItem)
+        return UpdateItemResponseDto.from(await this._repository.update(data))
         return data;
     }
 

@@ -1,10 +1,11 @@
 import { IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { Item } from 'src/domain/entities/item.entity';
-import { UpdateItemResponseDto } from './update-item-response.dto';
 //import { v4 as uuidv4 } from 'uuid'
 
 export class UpdateItemRequestDto implements Readonly<UpdateItemRequestDto> {
+
+    id: string;
 
     @ApiProperty({ description: 'Nome do item' })
     @IsString()
@@ -14,13 +15,16 @@ export class UpdateItemRequestDto implements Readonly<UpdateItemRequestDto> {
     @IsString()
     description: string;
 
-    public static from(entity: Item): UpdateItemResponseDto {
-        const response = new UpdateItemResponseDto();
+    createAt: Date;
+    updateAt: Date;
+
+    public static from(entity: Item): UpdateItemRequestDto {
+        const response = new UpdateItemRequestDto();
         response.id = entity.id
         response.name = entity.name
         response.description = entity.description
         response.createAt = entity.createAt
-        response.updateAt = entity.updateAt
+        response.updateAt = new Date((new Date()).getTime() + 24 * 60 * 60 * 1000)
         return response
     }
 

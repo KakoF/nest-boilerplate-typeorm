@@ -9,15 +9,17 @@ export class UpdateItemResponseDto implements Readonly<UpdateItemResponseDto> {
     createAt: Date;
     updateAt: Date;
 
-    /*public static from(dto: Partial<CreatItemDto>) {
-        const it = new CreatItemDto();
-        it.id = uuidv4();
+    public static from(dto: Partial<UpdateItemResponseDto>) {
+        const it = new UpdateItemResponseDto();
+        it.id = dto.id
         it.name = dto.name;
         it.description = dto.description;
+        it.createAt = dto.createAt;
+        it.updateAt = dto.updateAt
         return it;
     }
 
-    public static fromEntity(entity: Item) {
+    /*public static fromEntity(entity: Item) {
         return this.from({
             id: entity.id,
             name: entity.name,

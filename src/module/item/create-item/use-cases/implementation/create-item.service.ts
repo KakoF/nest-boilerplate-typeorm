@@ -10,8 +10,8 @@ export class CreateItemService implements ICreateItemInterface {
         private readonly _repository: ICreateItemRepository
     ) { }
     async handle(item: CreateItemRequestDto): Promise<CreateItemResponseDto> {
-        const data = CreateItemRequestDto.from(await this._repository.create(item))
-        return data;
+        const data = CreateItemRequestDto.from(item)
+        return CreateItemResponseDto.from(await this._repository.create(data))
     }
 
 }
