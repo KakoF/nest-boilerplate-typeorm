@@ -1,7 +1,5 @@
 import { Module } from '@nestjs/common';
 import { BcryptService } from '../../providers/implementation/bcrypt.service';
-import { DatabaseModule } from '../../database/database.module';
-import { loginProviders } from './login.provider';
 import { LoginController } from './login/login.controller';
 import { LoginService } from './login/use-cases/implementation/login.service';
 import { LOGIN_USER } from './login/use-cases/login.interface';
@@ -13,20 +11,21 @@ import { JWTGuard } from '../../providers/guards/jwt.guard';
 import { JwtStrategy } from './login/use-cases/implementation/jwt.strategy';
 import { AUTHENTICATE } from './login/use-cases/authenticate.interface';
 import { AuthenticateService } from './login/use-cases/implementation/authenticate.service';
+import { LoginRepositoryModule } from '../../data/repository/login/login.repository.module';
 
 @Module({
-    imports: [DatabaseModule,
+    imports: [LoginRepositoryModule,
         JwtModule.register({
             secret: process.env.SECRET,
             signOptions: {
                 expiresIn: process.env.TOKEN_TIME,
             }
         })],
-    providers: [...loginProviders,
-    { useClass: LoginService, provide: LOGIN_USER },
-    { useClass: BcryptService, provide: CRYPT_SERVICE },
-    { useClass: AuthService, provide: AUTH },
-    { useClass: AuthenticateService, provide: AUTHENTICATE },
+    providers: [
+        { useClass: LoginService, provide: LOGIN_USER },
+        { useClass: BcryptService, provide: CRYPT_SERVICE },
+        { useClass: AuthService, provide: AUTH },
+        { useClass: AuthenticateService, provide: AUTHENTICATE },
         JWTGuard, JwtStrategy],
     controllers: [LoginController],
     exports: []
