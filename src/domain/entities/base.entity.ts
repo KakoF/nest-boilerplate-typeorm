@@ -7,10 +7,10 @@ export abstract class BaseEntity {
     @ObjectIdColumn()
     id: string;
 
-    @CreateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
+    @CreateDateColumn({ type: 'timestamp' })
     createAt: Date;
 
-    @UpdateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
+    @UpdateDateColumn({ type: 'timestamp' })
     updateAt: Date;
 
 }
