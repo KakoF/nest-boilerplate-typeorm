@@ -4,12 +4,13 @@ services:
   mysql:
     container_name: 'mysql_api_base'
     image: mysql:8.0.23
+    command: --default-authentication-plugin=mysql_native_password
     restart: always
     environment:
-      MYSQL_DATABASE: 'api-base'
-      MYSQL_USER: 'api-base-user'
-      MYSQL_PASSWORD: 'api-base-password'
-      MYSQL_ROOT_PASSWORD: 'api-base-password'
+      MYSQL_DATABASE: 'apibase'
+      MYSQL_USER: 'apibaseuser'
+      MYSQL_PASSWORD: 'apibasepassword'
+      MYSQL_ROOT_PASSWORD: 'apibasepassword'
     ports:
       - '3301:3306'
     expose:
