@@ -1,4 +1,4 @@
-import { IsEmail, IsString, IsUUID } from 'class-validator';
+import { IsEmail, IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { v4 as uuidv4 } from 'uuid'
 
@@ -7,20 +7,21 @@ import { v4 as uuidv4 } from 'uuid'
 
 export class RegisterRequestDto implements Readonly<RegisterRequestDto> {
 
-    @IsUUID()
+
     id: string;
 
     @ApiProperty({ description: 'Email do usuário' })
-    @IsEmail()
+    @IsEmail({}, { message: "E-mail deve ser válido" })
     email: string;
 
     @ApiProperty({ description: 'Nome do usuário' })
+    @IsNotEmpty({ message: "Nome é campo obrigatório" })
     name: string;
 
     role: string;
 
     @ApiProperty({ description: 'Senha do usuário' })
-    @IsString()
+    @IsNotEmpty({ message: "Senha é campo obrigatório" })
     password: string;
 
     public static from(dto: Partial<RegisterRequestDto>) {

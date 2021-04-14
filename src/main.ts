@@ -5,12 +5,14 @@ require('dotenv').config({
   path: path.join(__dirname, process.argv[2] ? `../.env.${process.argv[2]}` : `../.env`),
 })
 
+import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
+  app.useGlobalPipes(new ValidationPipe()); // enable ValidationPipe`
   const config = new DocumentBuilder()
     .setTitle('Api Base Example')
     .setDescription('')

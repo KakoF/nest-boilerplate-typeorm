@@ -1,4 +1,4 @@
-import { IsEmail, IsString } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { User } from '../../../../domain/entities/user.entity';
 import { LoginResponseDto } from './login-response.dto';
@@ -7,10 +7,12 @@ import { LoginResponseDto } from './login-response.dto';
 export class LoginRequestDto implements Readonly<LoginRequestDto> {
 
     @ApiProperty({ description: 'Email do usuário' })
-    @IsEmail()
+    @IsEmail({}, { message: "E-mail deve ser válido" })
+    @IsNotEmpty({ message: "E-mail é campo obrigatório" })
     email: string;
 
     @ApiProperty({ description: 'Senha do usuário' })
+    @IsNotEmpty({ message: "Senha é campo obrigatório" })
     @IsString()
     password: string;
 

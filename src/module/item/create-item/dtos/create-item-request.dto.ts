@@ -1,17 +1,17 @@
-import { IsString, IsUUID, } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { CreateItemResponseDto } from './create-item-response.dto';
 import { v4 as uuidv4 } from 'uuid'
 
 export class CreateItemRequestDto implements Readonly<CreateItemRequestDto> {
-    @IsUUID()
     id: string;
 
     @ApiProperty({ description: 'Nome do item' })
     @IsString()
+    @IsNotEmpty({ message: "Nome é campo obrigatório" })
     name: string;
 
     @ApiProperty({ description: 'Descrição do item' })
+    @IsNotEmpty({ message: "Descrição é campo obrigatório" })
     @IsString()
     description: string;
 
